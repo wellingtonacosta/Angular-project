@@ -1,0 +1,31 @@
+.mat-sidenav-container {
+  height: 100%;
+}
+
+.toolbar_title {
+  display: flex;
+  flex: auto;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
+table {
+  width: 95%;
+  margin: 2% auto 4%;
+}
+
+.mat-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+td.mat-column-star {
+  width: 20px;
+  padding-right: 8px;
+}
+
+.mat-sidenav .mat-toolbar div{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}

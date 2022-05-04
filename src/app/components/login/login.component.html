@@ -1,0 +1,25 @@
+<div class="container">
+  <mat-card style="color: blue">
+    <form>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <input matInput placeholder="Email" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Passworld</mat-label>
+        <mat-icon matSuffix>password</mat-icon>
+        <input matInput placeholder="Passworld" />
+      </mat-form-field>
+      <button
+        routerLink="/users"
+        type="button"
+        mat-raised-button
+        color="primary"
+      >
+        Login
+      </button>
+    </form>
+  </mat-card>
+</div>
