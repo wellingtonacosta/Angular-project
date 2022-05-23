@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { MatTable } from '@angular/material/table';
+import { DialogComponent } from '../dialog/dialog.component';
 
-export interface PeriodicElement {
+export interface userDataProfile {
   name: string;
   id: number;
   email: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+const userProfile: userDataProfile[] = [
   { id: 1, name: 'Rajveer Chandler', email: 'chandler@email.com' },
   { id: 2, name: 'Leela Brown', email: 'Leela@email.com' },
   { id: 3, name: 'Sonia Dale', email: 'Sonia@email.com' },
@@ -26,8 +29,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table-component.scss'],
 })
 export class TableComponent {
+  @ViewChild(MatTable)
+  table!: MatTable<any>;
   displayedColumns: string[] = ['id', 'name', 'email', 'actions'];
-  dataSource = ELEMENT_DATA;
+  dataSource = userProfile;
 
   // MatPaginator Inputs
   length = 100;
@@ -43,5 +48,34 @@ export class TableComponent {
         .split(',')
         .map((str) => +str);
     }
+  }
+
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(user: userDataProfile | null): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '250px',
+      data:
+        user === null
+          ? {
+              id: null,
+              name: null,
+              email: null,
+            }
+          : user,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result !== undefined) {
+        this.dataSource.push(result);
+        this.table.renderRows();
+      }
+    });
+  }
+  editUser(user: userDataProfile) {
+    this.openDialog(user);
+  }
+  deleteUser(id: number): void {
+    this.dataSource = this.dataSource.filter((row) => row.id !== id);
   }
 }

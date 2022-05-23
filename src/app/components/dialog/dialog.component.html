@@ -1,0 +1,22 @@
+<h1 *ngIf="!ischange" mat-dialog-title>Create user</h1>
+<h1 *ngIf="ischange" mat-dialog-title>Edit user</h1>
+<div mat-dialog-content>
+  <p>Please, put the id, name and email.</p>
+  <mat-form-field appearance="fill">
+    <mat-label>id</mat-label>
+    <input matInput [(ngModel)]="data.id" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.name" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="data.email" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button *ngIf="!ischange" mat-button [mat-dialog-close]="data">Create</button>
+  <button *ngIf="ischange" mat-button [mat-dialog-close]="data">Edit</button>
+</div>
