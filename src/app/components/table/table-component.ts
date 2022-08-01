@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
@@ -28,7 +29,7 @@ const userProfile: userDataProfile[] = [
   templateUrl: './table-component.html',
   styleUrls: ['./table-component.scss'],
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
   @ViewChild(MatTable)
   table!: MatTable<any>;
   displayedColumns: string[] = ['id', 'name', 'email', 'actions'];
@@ -50,7 +51,12 @@ export class TableComponent {
     }
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public http: HttpClient) {}
+  ngOnInit(): void {
+    this.http.get('http://localhost:3000/users').subscribe((data) => {
+      this.dataSource = data as any;
+    });
+  }
 
   openDialog(user: userDataProfile | null): void {
     const dialogRef = this.dialog.open(DialogComponent, {
